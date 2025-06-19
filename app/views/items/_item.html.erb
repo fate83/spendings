@@ -1,0 +1,10 @@
+<tr id="<%= dom_id(item) %>" >
+  <td class="border border-gray-300 ..."><%= item.name %></td>
+  <td class="border border-gray-300 ..."><%= item.price %></td>
+  <td class="border border-gray-300 ..."><%= item.category.name %></td>
+  <td>
+    <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
+      <%= button_to "Destroy", item, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+    </div>
+  </td>
+</tr>
