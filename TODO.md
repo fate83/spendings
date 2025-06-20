@@ -1,0 +1,9 @@
+# ToDo
+- [x] Geschäfte
+- [x] Kategorien
+- [x] Kassenbons
+- [x] Dashboar mit Statistiken
+- [x] User/Teams/Memberships/Roles
+- [x] Current Team / Switch Teams
+- [ ] Invitations
+- 

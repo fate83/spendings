@@ -4,3 +4,21 @@
 <% if user_signed_in? %>
   <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete } %>
 <% end %>
+
+
+<% if user_signed_in? %>
+  <%= form_with(url: change_teams_path,
+      data: { controller: 'form' }) do |form| %>
+    <%= form.select :team_id,
+                    options_for_select(current_user.teams.order(:name).pluck(:name, :id), current_user.team.id),
+                    {},
+                    {
+                      data: {
+                        action: 'change->form#submit'
+                      }
+                    }
+    %>
+    <%= form.text_field :referer, value: request.referrer, class: "hidden" %>
+  <% end %>
+  <%= link_to 'Neues Team', new_team_path %>
+<% end %>

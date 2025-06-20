@@ -57,6 +57,17 @@ class TeamsController < ApplicationController
     end
   end
 
+  def change
+    if params[:team_id].present?
+      team = current_user.teams.find(params[:team_id])
+      current_user.update(team: team)
+    end
+
+    if params[:referer].present?
+      redirect_to params[:referer]
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_team

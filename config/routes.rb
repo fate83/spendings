@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  resources :memberships
-  resources :roles
-  resources :teams
   devise_for :users
   get "dashboards/index"
   shallow do
@@ -10,8 +7,14 @@ Rails.application.routes.draw do
       resources :items
     end
     resources :items
-
     resources :shops
+    resources :memberships
+    resources :roles
+    resources :teams do
+      collection do
+        post "change"
+      end
+    end
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -23,5 +26,5 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "receipts#index"
+  root "dashboards#index"
 end

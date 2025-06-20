@@ -5,4 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable,
          :trackable
+
+  belongs_to :team
+  alias :current_team :team
+
+  has_many :memberships
+  has_many :teams, through: :memberships
 end
