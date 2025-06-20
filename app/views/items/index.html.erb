@@ -1,11 +1,21 @@
 <% content_for :title, "Items" %>
 
 <div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
+  <div class="my=5">
+    Einkaufsdatum: <%= @receipt.shopped_at.strftime("%d.%m.%Y") %>
+  </div>
 
-  <%= render 'items/form', item: @item, receipt: @receipt %>
+  <div>
+    Geschäft: <%= @receipt.shop.name %>
+  </div>
 
-  <%= render 'items/items', items: @items %>
+  <hr>
+
+  <div class="mt-2">
+    <%= render 'items/form', item: @item, receipt: @receipt %>
+  </div>
+
+  <div class="mt-2">
+    <%= render 'items/items', items: @items %>
+  </div>
 </div>

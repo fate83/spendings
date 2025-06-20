@@ -1,23 +1,21 @@
 <turbo-frame id="items" class="min-w-full divide-y divide-gray-200 space-y-5">
   <% if items.any? %>
-    <% items.each do |item| %>
-      <div id="<%= dom_id item %>" class="w-full sm:w-auto my-5 space-y-5">
-        <table class="border-collapse border border-gray-400 ...">
-          <thead>
-          <tr>
-            <th class="border border-gray-300 ...">Bezeichnung</th>
-            <th class="border border-gray-300 ...">Anzahl</th>
-            <th class="border border-gray-300 ...">Gesamtpreis</th>
-            <th class="border border-gray-300 ...">Kategorie</th>
-            <th class="border border-gray-300 ..."></th>
-          </tr>
-          </thead>
-          <tbody>
+    <table class="border-collapse border border-gray-400 ...">
+      <thead>
+      <tr>
+        <th class="border border-gray-300 ...">Bezeichnung</th>
+        <th class="border border-gray-300 ...">Anzahl</th>
+        <th class="border border-gray-300 ...">Gesamtpreis</th>
+        <th class="border border-gray-300 ...">Kategorie</th>
+        <th class="border border-gray-300 ..."></th>
+      </tr>
+      </thead>
+      <tbody>
+        <% items.each do |item| %>
           <%= render item %>
-          </tbody>
-        </table>
-      </div>
-    <% end %>
+        <% end %>
+      </tbody>
+    </table>
   <% else %>
     <p class="text-center my-10">No items found.</p>
   <% end %>

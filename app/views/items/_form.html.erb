@@ -1,7 +1,7 @@
 <%= form_with(model: [receipt, item], class: "contents",
               data: {
-                controller: "reset-form reset-autofocus",
-                action: "turbo:submit-end->reset-form#reset turbo:submit-end->reset-autofocus#reset"
+                controller: "reset-autofocus",
+                action: "turbo:submit-end->reset-autofocus#reset"
               }) do |form| %>
   <% if item.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
@@ -15,20 +15,18 @@
     </div>
   <% end %>
 
-  <div class="my=5">
-    Einkaufsdatum: <%= @receipt.shopped_at.strftime("%d.%m.%Y") %>
-  </div>
-
-  <div>
-    Geschäft: <%= @receipt.shop.name %>
-  </div>
-
-  <hr>
-  <h1 class="font-bold mt-2 text-4xl">Eingabe</h1>
-
   <div class="my-5">
     <%= form.label :name %>
-    <%= form.text_field :name, autofocus: true, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": item.errors[:name].none?, "border-red-400 focus:outline-red-600": item.errors[:name].any?}] %>
+    <%= form.select :name,
+                    options_for_select(Item.pluck(:name).uniq, nil),
+                    { include_blank: true },
+                    {
+                      data: {
+                        controller: 'tom-select',
+                        'tom-select-autofocus-value': true,
+                        }
+                    }
+    %>
   </div>
 
   <div class="my-5">
@@ -41,8 +39,18 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :category_id %>
-    <%= form.collection_select :category_id, Category.all.order(name: :asc), :id, :name, {}, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": receipt.errors[:shop_id].none?, "border-red-400 focus:outline-red-600": receipt.errors[:shop_id].any?}] %>
+    <%= form.label :category_name %>
+    <%= form.select :category_name,
+                    options_for_select(Category.order(name: :asc).pluck(:name), nil),
+                    { include_blank: true },
+                    {
+                      data: {
+                        controller: 'tom-select'
+                      }
+                    }
+
+
+    %>
   </div>
 
   <div class="my-5">

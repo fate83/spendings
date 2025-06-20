@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: %i[ show edit update destroy ]
+  before_action :set_item, only: %i[ update destroy ]
 
   # GET /items or /items.json
   def index
@@ -8,28 +8,16 @@ class ItemsController < ApplicationController
     @item = Item.new(receipt_id: @receipt.id)
   end
 
-  # GET /items/1 or /items/1.json
-  def show
-  end
-
-  # GET /items/new
-  def new
-    @item = Item.new
-  end
-
-  # GET /items/1/edit
-  def edit
-  end
-
   # POST /items or /items.json
   def create
     @receipt = Receipt.find(params[:receipt_id])
+    @category = Category.find_or_create_by!(name: params["item"]["category_name"])
     @items = @receipt.items
-    @item = Item.new(item_params)
+    @item = Item.new(item_params.merge(category_id: @category.id))
 
     respond_to do |format|
       if @item.save
-        format.turbo_stream { render turbo_stream: turbo_stream.update('items', partial: 'items/items', locals: { items: @items }) }
+        format.turbo_stream { render turbo_stream: turbo_stream.update("items", partial: "items/items", locals: { items: @items }) }
         format.html { redirect_to receipt_items_path(@receipt)}
         format.json { render :index, status: :created, location: @item }
       else
@@ -72,6 +60,6 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.expect(item: [ :name, :price, :receipt_id, :category_id ])
+      params.expect(item: [ :name, :price, :amount, :receipt_id, :category_id ])
     end
 end

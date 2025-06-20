@@ -155,8 +155,8 @@ data.each do |d|
   category = Category.find_or_create_by(:name => category)
   shop = Shop.find_or_create_by(:name => shop)
   date = Date.parse(date)
-  price = price.to_f
+  price = price.gsub(',', '.').to_f
 
   receipt = Receipt.find_or_create_by(shopped_at: date, shop: shop)
-  Item.create(name: item, price: price, category: category, receipt: receipt)
+  Item.create(name: item, price: price, amount: 1, category: category, receipt: receipt)
 end
