@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_20_144818) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_20_150942) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -33,6 +33,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_20_144818) do
     t.index ["receipt_id"], name: "index_items_on_receipt_id"
   end
 
+  create_table "memberships", force: :cascade do |t|
+    t.bigint "team_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "role_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_memberships_on_role_id"
+    t.index ["team_id"], name: "index_memberships_on_team_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
   create_table "receipts", force: :cascade do |t|
     t.date "shopped_at"
     t.bigint "shop_id", null: false
@@ -41,7 +52,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_20_144818) do
     t.index ["shop_id"], name: "index_receipts_on_shop_id"
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "shops", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -75,5 +98,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_20_144818) do
 
   add_foreign_key "items", "categories"
   add_foreign_key "items", "receipts"
+  add_foreign_key "memberships", "roles"
+  add_foreign_key "memberships", "teams"
+  add_foreign_key "memberships", "users"
   add_foreign_key "receipts", "shops"
 end

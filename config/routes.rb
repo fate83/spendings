@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :memberships
+  resources :roles
+  resources :teams
   devise_for :users
   get "dashboards/index"
   shallow do
