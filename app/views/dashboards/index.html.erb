@@ -1,0 +1,39 @@
+<div>
+  <h1 class="text-3xl">
+    Gesamt
+  </h1>
+</div>
+
+<hr>
+
+Summe: <%= @total_sum %>
+<ul>
+  <% @total_categories.each do |key, value| %>
+    <li>
+      <%= key %>:
+      <%= value %>
+      <%= ((value / @total_sum) * 100).round(2) %>%
+    </li>
+  <% end %>
+</ul>
+
+<hr>
+
+<ul>
+  <% @sum_months.each do |month, total| %>
+    <li>
+      <%= Date::MONTHNAMES[month] %>:
+      <%= total %>
+      <hr>
+      <ul>
+        <% @sum_months_categories[month].each do |category, sum| %>
+          <li>
+            <%= category %>:
+            <%= sum %>
+            <%= ((sum / total) * 100).round(2) %>%
+          </li>
+      <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "dashboards/index"
   shallow do
     resources :categories
     resources :receipts do
