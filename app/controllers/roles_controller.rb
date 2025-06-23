@@ -3,6 +3,7 @@ class RolesController < ApplicationController
 
   # GET /roles or /roles.json
   def index
+    authorize(Role)
     @roles = Role.all
   end
 

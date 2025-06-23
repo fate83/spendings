@@ -3,24 +3,29 @@ class MembershipsController < ApplicationController
 
   # GET /memberships or /memberships.json
   def index
+    authorize(Membership)
     @memberships = Membership.all
   end
 
   # GET /memberships/1 or /memberships/1.json
   def show
+    authorize(Membership)
   end
 
   # GET /memberships/new
   def new
+    authorize(Membership)
     @membership = Membership.new
   end
 
   # GET /memberships/1/edit
   def edit
+    authorize(@membership)
   end
 
   # POST /memberships or /memberships.json
   def create
+    authorize(Membership)
     @membership = Membership.new(membership_params)
 
     respond_to do |format|
@@ -36,6 +41,7 @@ class MembershipsController < ApplicationController
 
   # PATCH/PUT /memberships/1 or /memberships/1.json
   def update
+    authorize(@membership)
     respond_to do |format|
       if @membership.update(membership_params)
         format.html { redirect_to @membership, notice: "Membership was successfully updated." }
@@ -49,6 +55,7 @@ class MembershipsController < ApplicationController
 
   # DELETE /memberships/1 or /memberships/1.json
   def destroy
+    authorize(@membership)
     @membership.destroy!
 
     respond_to do |format|

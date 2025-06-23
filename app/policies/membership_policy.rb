@@ -1,4 +1,4 @@
-class TeamPolicy < ApplicationPolicy
+class MembershipPolicy < ApplicationPolicy
   attr_reader :user, :membership
 
   def initialize(user, membership)
@@ -9,13 +9,12 @@ class TeamPolicy < ApplicationPolicy
   def index?
     user.superadmin?
   end
-  alias :show? :index?
-  alias :new? :index?
-  alias :edit? :index?
-  alias :create? :index?
-  alias :update? :index?
-  alias :destroy? :index?
-  alias :change? :index?
+  alias :show :index?
+  alias :new :index?
+  alias :edit :index?
+  alias :create :index?
+  alias :update :index?
+  alias :destroy :index?
 
   class Scope < ApplicationPolicy::Scope
     def resolve

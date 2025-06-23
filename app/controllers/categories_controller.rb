@@ -3,24 +3,29 @@ class CategoriesController < ApplicationController
 
   # GET /categories or /categories.json
   def index
-    @categories = Category.all
+    authorize(Category)
+    @categories = policy_scope(Category)
   end
 
   # GET /categories/1 or /categories/1.json
   def show
+    authorize(Category)
   end
 
   # GET /categories/new
   def new
+    authorize(Category)
     @category = Category.new
   end
 
   # GET /categories/1/edit
   def edit
+    authorize(@category)
   end
 
   # POST /categories or /categories.json
   def create
+    authorize(Category)
     @category = Category.new(category_params)
 
     respond_to do |format|
@@ -36,6 +41,7 @@ class CategoriesController < ApplicationController
 
   # PATCH/PUT /categories/1 or /categories/1.json
   def update
+    authorize(@category)
     respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to @category, notice: "Category was successfully updated." }
@@ -49,6 +55,7 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1 or /categories/1.json
   def destroy
+    authorize(@category)
     @category.destroy!
 
     respond_to do |format|

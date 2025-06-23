@@ -1,20 +1,90 @@
-<ul>
-  <li>
-    <%= link_to 'Kategorien', categories_path %>
-  </li>
-  <li>
-    <%= link_to 'Shops', shops_path %>
-  </li>
-  <li>
-    <%= link_to 'Kassenbons', receipts_path %>
-  </li>
-  <li>
-    <%= link_to 'Teams', teams_path %>
-  </li>
-  <li>
-    <%= link_to 'Roles', roles_path %>
-  </li>
-  <li>
-    <%= link_to 'Memberships', memberships_path %>
-  </li>
-</ul>
+<aside class="w-full md:w-64 p-4 bg-orange-50 order-1">
+  <ul>
+    <% if user_signed_in? %>
+      <li class="border-t-1 border-b-1">
+        Actions
+      </li>
+      <li>
+        <div class="pt-2">
+          <%= render partial: 'layouts/shared/sidebar_action',
+                     locals: {
+                       path: new_receipt_path,
+                       icon: render(partial: 'layouts/shared/icons/add_icon'),
+                       text: "Neuer Bon"
+                     } %>
+        </div>
+      </li>
+      <li class="border-t-1 border-b-1">
+        Team-Menü
+      </li>
+      <li>
+        <div class="pt-2">
+          <%= render partial: 'layouts/shared/sidebar_link',
+                     locals: {
+                       path: shops_path,
+                       icon: render(partial: 'layouts/shared/icons/store_icon'),
+                       text: "Shops"
+                     } %>
+        </div>
+      </li>
+      <li>
+        <div class="pt-2">
+          <%= render partial: 'layouts/shared/sidebar_link',
+                     locals: {
+                       path: categories_path,
+                       icon: render(partial: 'layouts/shared/icons/category_icon'),
+                       text: "Kategorien"
+                     } %>
+        </div>
+      </li>
+      <li>
+        <div class="pt-2">
+          <%= render partial: 'layouts/shared/sidebar_link',
+                     locals: {
+                       path: receipts_path,
+                       icon: render(partial: 'layouts/shared/icons/receipt_icon'),
+                       text: "Kassenbons"
+                     } %>
+        </div>
+      </li>
+      <li class="border-t-1 border-b-1">
+        Profil-Menü
+      </li>
+      <li>
+        <div class="pt-2">
+          <%= render partial: 'layouts/shared/sidebar_link',
+                     locals: {
+                       path: teams_path,
+                       icon: render(partial: 'layouts/shared/icons/team_icon'),
+                       text: "Meine Teams"
+                     } %>
+        </div>
+      </li>
+      <% if current_user.superadmin? %>
+        <li class="border-t-1 border-b-1">
+          Superadmin
+        </li>
+        <li>
+          <div class="pt-2">
+            <%= render partial: 'layouts/shared/sidebar_link',
+                       locals: {
+                         path: roles_path,
+                         icon: render(partial: 'layouts/shared/icons/role_icon'),
+                         text: "Roles"
+                       } %>
+          </div>
+        </li>
+        <li>
+          <div class="pt-2">
+            <%= render partial: 'layouts/shared/sidebar_link',
+                       locals: {
+                         path: memberships_path,
+                         icon: render(partial: 'layouts/shared/icons/memberships_icon'),
+                         text: "Memberships"
+                       } %>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</aside>

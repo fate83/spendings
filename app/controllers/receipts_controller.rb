@@ -3,25 +3,30 @@ class ReceiptsController < ApplicationController
 
   # GET /receipts or /receipts.json
   def index
-    @receipts = Receipt.all.order(shopped_at: :asc)
+    authorize(Receipt)
+    @receipts = policy_scope(Receipt).order(shopped_at: :desc)
   end
 
   # GET /receipts/1 or /receipts/1.json
   def show
+    authorize(Receipt)
   end
 
   # GET /receipts/new
   def new
+    authorize(Receipt)
     @receipt = Receipt.new
   end
 
   # GET /receipts/1/edit
   def edit
+    authorize(@receipt)
   end
 
   # POST /receipts or /receipts.json
   def create
-    @receipt = Receipt.new(receipt_params)
+    authorize(Receipt)
+    @receipt = Receipt.new(receipt_params.merge(team: current_user.team))
 
     respond_to do |format|
       if @receipt.save
@@ -36,6 +41,7 @@ class ReceiptsController < ApplicationController
 
   # PATCH/PUT /receipts/1 or /receipts/1.json
   def update
+    authorize(@receipt)
     respond_to do |format|
       if @receipt.update(receipt_params)
         format.html { redirect_to @receipt, notice: "Receipt was successfully updated." }
@@ -49,6 +55,7 @@ class ReceiptsController < ApplicationController
 
   # DELETE /receipts/1 or /receipts/1.json
   def destroy
+    authorize(@receipt)
     @receipt.destroy!
 
     respond_to do |format|

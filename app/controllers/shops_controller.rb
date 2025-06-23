@@ -3,25 +3,30 @@ class ShopsController < ApplicationController
 
   # GET /shops or /shops.json
   def index
-    @shops = Shop.all
+    authorize(Shop)
+    @shops = policy_scope(Shop)
   end
 
   # GET /shops/1 or /shops/1.json
   def show
+    authorize(Shop)
   end
 
   # GET /shops/new
   def new
+    authorize(Shop)
     @shop = Shop.new
   end
 
   # GET /shops/1/edit
   def edit
+    authorize(@shop)
   end
 
   # POST /shops or /shops.json
   def create
-    @shop = Shop.new(shop_params)
+    authorize(Shop)
+    @shop = Shop.new(shop_params.merge(team: current_user.team))
 
     respond_to do |format|
       if @shop.save
@@ -36,6 +41,7 @@ class ShopsController < ApplicationController
 
   # PATCH/PUT /shops/1 or /shops/1.json
   def update
+    authorize(@shop)
     respond_to do |format|
       if @shop.update(shop_params)
         format.html { redirect_to @shop, notice: "Shop was successfully updated." }
@@ -49,6 +55,7 @@ class ShopsController < ApplicationController
 
   # DELETE /shops/1 or /shops/1.json
   def destroy
+    authorize(@shop)
     @shop.destroy!
 
     respond_to do |format|

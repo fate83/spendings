@@ -1,4 +1,5 @@
 class Receipt < ApplicationRecord
   belongs_to :shop
-  has_many :items
+  belongs_to :team
+  has_many :items, dependent: :destroy
 end

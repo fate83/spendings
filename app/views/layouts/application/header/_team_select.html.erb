@@ -1,0 +1,18 @@
+<ul class="flex justify-center items-center">
+  <li>
+    <%= form_with(url: change_teams_path,
+                  class: 'team-select inline-flex',
+                  data: { controller: 'form' }) do |form| %>
+      <%= form.select :team_id,
+                      options_for_select(current_user.teams.order(:name).pluck(:name, :id), current_user.team.id),
+                      {},
+                      {
+                        class: "p-2 bg-teal-500 text-black rounded-lg border-1 border-teal-700 w-48 text-center items-center",
+                        data: {
+                          action: 'change->form#submit'
+                        }
+                      }
+      %>
+    <% end %>
+  </li>
+</ul>

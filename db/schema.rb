@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_20_173602) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_23_144149) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -51,7 +51,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_20_173602) do
     t.bigint "shop_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "team_id", default: 1, null: false
     t.index ["shop_id"], name: "index_receipts_on_shop_id"
+    t.index ["team_id"], name: "index_receipts_on_team_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -64,6 +66,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_20_173602) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "team_id", default: 1, null: false
+    t.index ["team_id"], name: "index_shops_on_team_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -108,5 +112,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_20_173602) do
   add_foreign_key "memberships", "teams"
   add_foreign_key "memberships", "users"
   add_foreign_key "receipts", "shops"
+  add_foreign_key "receipts", "teams"
+  add_foreign_key "shops", "teams"
   add_foreign_key "users", "teams"
 end

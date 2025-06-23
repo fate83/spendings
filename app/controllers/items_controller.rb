@@ -1,17 +1,20 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: %i[ update destroy ]
+  before_action :set_item, only: %i[ destroy ]
+  before_action :set_receipt, only: %i[ index create ]
 
   # GET /items or /items.json
   def index
-    @receipt = Receipt.find(params[:receipt_id])
+    authorize(@receipt)
+    authorize(Item)
     @items = @receipt.items
     @item = Item.new(receipt_id: @receipt.id)
   end
 
   # POST /items or /items.json
   def create
-    @receipt = Receipt.find(params[:receipt_id])
-    @category = Category.find_or_create_by!(name: params["item"]["category_name"])
+    authorize(@receipt)
+    authorize(Item)
+    @category = current_user.team.categories.find_or_create_by!(name: params["item"]["category_name"])
     @items = @receipt.items
     @item = Item.new(item_params.merge(category_id: @category.id))
 
@@ -27,21 +30,9 @@ class ItemsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /items/1 or /items/1.json
-  def update
-    respond_to do |format|
-      if @item.update(item_params)
-        format.html { redirect_to @item, notice: "Item was successfully updated." }
-        format.json { render :show, status: :ok, location: @item }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # DELETE /items/1 or /items/1.json
   def destroy
+    authorize(@item)
     @receipt = @item.receipt
     @item.destroy!
 
@@ -54,6 +45,10 @@ class ItemsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_receipt
+      @receipt = Receipt.find(params.expect(:receipt_id))
+    end
+
     def set_item
       @item = Item.find(params.expect(:id))
     end

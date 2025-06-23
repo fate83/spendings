@@ -1,9 +1,9 @@
-class CategoryPolicy < ApplicationPolicy
-  attr_reader :user, :category
+class ShopPolicy < ApplicationPolicy
+  attr_reader :user, :shop
 
-  def initialize(user, category)
+  def initialize(user, shop)
     @user = user
-    @category = category
+    @shop = shop
   end
 
   def index?
@@ -14,15 +14,16 @@ class CategoryPolicy < ApplicationPolicy
   alias :create? :index?
 
   def edit?
-    user.admin? && user.team.categories.any?(category)
+    user.team.shops.any?(shop)
   end
   alias :update? :edit?
   alias :destroy? :edit?
 
+
   class Scope < ApplicationPolicy::Scope
     def resolve
-      # All Categories of Team
-      scope.where(id: user.team.categories)
+      # All shops of current team
+      scope.where(id: user.team.shops)
     end
   end
 end
