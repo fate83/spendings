@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  token: MyString
+  accepted_at: 2025-06-23 17:26:28
+  membership: one
+  team: one
+
+two:
+  email: MyString
+  token: MyString
+  accepted_at: 2025-06-23 17:26:28
+  membership: two
+  team: two

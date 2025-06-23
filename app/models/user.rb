@@ -9,9 +9,10 @@ class User < ApplicationRecord
   belongs_to :team
   alias :current_team :team
 
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
   has_many :teams, through: :memberships
   has_many :roles, through: :memberships
+  has_many :invitations, through: :memberships
 
   def admin?
     admin_membership = Membership.includes(:role).find_by(user: self, team: team)
@@ -21,4 +22,9 @@ class User < ApplicationRecord
   def superadmin?
     !!superadmin
   end
+
+  def membership
+    Membership.find_by(user: self, team: current_team)
+  end
+  alias :current_membership :membership
 end

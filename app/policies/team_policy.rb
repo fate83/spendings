@@ -1,25 +1,35 @@
 class TeamPolicy < ApplicationPolicy
-  attr_reader :user, :membership
+  attr_reader :user, :team
 
   def initialize(user, membership)
     @user = user
-    @membership = membership
+    @team = membership
   end
 
   def index?
-    user.superadmin?
+    true
   end
-  alias :show? :index?
   alias :new? :index?
-  alias :edit? :index?
   alias :create? :index?
-  alias :update? :index?
-  alias :destroy? :index?
   alias :change? :index?
+
+  def show?
+    user.teams.any?(team) || user.superadmin?
+  end
+
+  def edit?
+    user.admin? || user.superadmin?
+  end
+  alias :update? :edit?
+  alias :destroy? :edit?
 
   class Scope < ApplicationPolicy::Scope
     def resolve
-      scope.all
+      if user.superadmin?
+        scope.all
+      else
+        scope.where(id: user.team_ids)
+      end
     end
   end
 end

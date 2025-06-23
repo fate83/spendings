@@ -5,6 +5,7 @@ class Team < ApplicationRecord
   has_many :shops, dependent: :destroy
   has_many :categories, dependent: :destroy
   has_many :receipts, dependent: :destroy
+  has_many :invitations, dependent: :destroy
 
   def admins
     users.where(memberships: { role_id: 1 })

@@ -2,19 +2,44 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   skip_after_action :verify_authorized
+  skip_before_action :require_no_authentication
 
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    if params[:token].present?
+      @invitation = Invitation.find_by!(token: params[:token])
+      if @invitation.accepted?
+        redirect_to new_user_session_path, alert: "Invalid invitation token"
+      else
+        @user = User.find_or_initialize_by(email: @invitation.email)
+        if @user.persisted?
+          @membership = Membership.find_or_initialize_by(team: @invitation.team, user: @user, role: Role.find(2))
+          if @membership.persisted?
+            redirect_to root_path, notice: "You are already on that team"
+          else
+            @membership.save!
+            @user.update(team: @invitation.team)
+            @invitation.update(accepted_at: Time.zone.now)
+            redirect_to root_path, notice: "Welcome to #{@invitation.team.name}!"
+          end
+        end
+      end
+    else
+      redirect_to new_user_session_path, alert: "Invalid invitation token"
+    end
+  end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+    @invitation = Invitation.find_by! email: @user.email
+    Membership.create!(team: @invitation.team, user: @user, role: Role.find(2))
+    @user.update(team: @invitation.team)
+    @invitation.update(accepted_at: Time.zone.now)
+  end
 
   # GET /resource/edit
   # def edit

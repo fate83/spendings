@@ -1,4 +1,5 @@
 <ul class="flex justify-between items-center p-4 bg-orange-50">
+  <% if user_signed_in? %>
   <li>
     <%= render partial: 'layouts/shared/header_link',
                locals: {
@@ -20,4 +21,5 @@
                  text: "Logout"
                } %>
   </li>
+  <% end %>
 </ul>

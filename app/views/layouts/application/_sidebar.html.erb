@@ -14,6 +14,18 @@
                      } %>
         </div>
       </li>
+      <% if current_user.admin? %>
+        <li>
+          <div class="pt-2">
+            <%= render partial: 'layouts/shared/sidebar_action',
+                       locals: {
+                         path: new_user_registration_path(token: Invitation.last.token),
+                         icon: render(partial: 'layouts/shared/icons/add_icon'),
+                         text: "Einladung"
+                       } %>
+          </div>
+        </li>
+      <% end %>
       <li class="border-t-1 border-b-1">
         Team-Menü
       </li>
@@ -44,6 +56,16 @@
                        path: receipts_path,
                        icon: render(partial: 'layouts/shared/icons/receipt_icon'),
                        text: "Kassenbons"
+                     } %>
+        </div>
+      </li>
+      <li>
+        <div class="pt-2">
+          <%= render partial: 'layouts/shared/sidebar_link',
+                     locals: {
+                       path: invitations_path,
+                       icon: render(partial: 'layouts/shared/icons/invitation_open_icon'),
+                       text: "Einladungen"
                      } %>
         </div>
       </li>

@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  Rails.application.routes.draw do
-    devise_for :users, controllers: {
-      sessions: 'users/sessions'
-    }
-  end
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    confirmations: 'users/confirmations'
+  }
+  get "user/sign_up", to: "users/registrations#new"
+
   get "dashboards/index"
   shallow do
+    resources :invitations, only: [:index, :new, :create, :destroy]
     resources :categories
     resources :receipts do
       resources :items
