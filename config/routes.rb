@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
+  Rails.application.routes.draw do
+    devise_for :users, controllers: {
+      sessions: 'users/sessions'
+    }
+  end
   get "dashboards/index"
   shallow do
     resources :categories

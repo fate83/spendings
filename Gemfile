@@ -18,14 +18,6 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
-# Process manager for applications with multiple components
-gem "foreman", "~> 0.88.1"
-
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
-
-# Flexible authentication solution for Rails with Warden
-gem "devise", "~> 4.9", ">= 4.9.3"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -68,3 +60,12 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# Process manager for applications with multiple components
+gem "foreman", "~> 0.88.1"
+
+# Flexible authentication solution for Rails with Warden
+gem "devise", "~> 4.9", ">= 4.9.3"
+
+# Object oriented authorization for Rails applications
+gem "pundit", "~> 2.5"

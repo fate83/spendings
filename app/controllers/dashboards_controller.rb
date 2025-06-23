@@ -1,5 +1,6 @@
 class DashboardsController < ApplicationController
   def index
+    authorize(:dashboard)
     statistics
   end
 

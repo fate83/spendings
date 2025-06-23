@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
+  # Include default users modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
@@ -11,4 +11,14 @@ class User < ApplicationRecord
 
   has_many :memberships
   has_many :teams, through: :memberships
+  has_many :roles, through: :memberships
+
+  def admin?
+    admin_membership = Membership.includes(:role).find_by(user: self, team: team)
+    admin_membership.role_id == 1 && admin_membership.role.name == "Administrator"
+  end
+
+  def superadmin?
+    !!superadmin
+  end
 end

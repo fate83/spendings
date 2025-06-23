@@ -6,4 +6,6 @@
 - [x] User/Teams/Memberships/Roles
 - [x] Current Team / Switch Teams
 - [ ] Invitations
+- [ ] Role-based Permissions
+- [ ] 
 - 

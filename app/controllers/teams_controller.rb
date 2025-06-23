@@ -3,28 +3,34 @@ class TeamsController < ApplicationController
 
   # GET /teams or /teams.json
   def index
-    @teams = Team.all
+    authorize(Team)
+    @teams = policy_scope(Team)
   end
 
   # GET /teams/1 or /teams/1.json
   def show
+    authorize(@team)
   end
 
   # GET /teams/new
   def new
+    authorize(Team)
     @team = Team.new
   end
 
   # GET /teams/1/edit
   def edit
+    authorize(@team)
   end
 
   # POST /teams or /teams.json
   def create
+    authorize(Team)
     @team = Team.new(team_params)
 
     respond_to do |format|
       if @team.save
+        Membership.create(user: current_user, team: @team, role_id: 1)
         format.html { redirect_to @team, notice: "Team was successfully created." }
         format.json { render :show, status: :created, location: @team }
       else
@@ -36,6 +42,8 @@ class TeamsController < ApplicationController
 
   # PATCH/PUT /teams/1 or /teams/1.json
   def update
+    authorize(@team)
+
     respond_to do |format|
       if @team.update(team_params)
         format.html { redirect_to @team, notice: "Team was successfully updated." }
@@ -49,6 +57,7 @@ class TeamsController < ApplicationController
 
   # DELETE /teams/1 or /teams/1.json
   def destroy
+    authorize(@team)
     @team.destroy!
 
     respond_to do |format|
@@ -60,12 +69,11 @@ class TeamsController < ApplicationController
   def change
     if params[:team_id].present?
       team = current_user.teams.find(params[:team_id])
+      authorize(team)
       current_user.update(team: team)
     end
 
-    if params[:referer].present?
-      redirect_to params[:referer]
-    end
+    redirect_to request.referer
   end
 
   private
