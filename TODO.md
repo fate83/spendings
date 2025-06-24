@@ -10,6 +10,14 @@
 - [-] Login forms Styling
 - [x] Promote/Demote Users
 - [x] Team/Show View with all users
-- [ ] Update List views
+- [x] User Admin view
+- [x] Promote/Demote Superadmins
+- [ ] Dashboard with colors
+- [ ] Update other List views
+  - Shops
+  - Categories
+  - Receipts
+  - Invitations
+  - Roles
 - [ ] I18n
 - [ ] enhance Kassenbons#index add sum, entry count, etc 

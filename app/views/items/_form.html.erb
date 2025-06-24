@@ -1,7 +1,7 @@
 <%= form_with(model: [receipt, item], class: "contents",
               data: {
-                controller: "reset-autofocus",
-                action: "turbo:submit-end->reset-autofocus#reset"
+                controller: "reset-autofocus form",
+                action: "turbo:submit-end->reset-autofocus#reset turbo:submit-end->form#reset_items_form"
               }) do |form| %>
   <% if item.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
@@ -16,15 +16,21 @@
   <% end %>
 
   <div class="my-5">
+    <%= form.text_field :receipt_id, class: "hidden" %>
+  </div>
+
+  <div class="my-5">
     <%= form.label :name %>
     <%= form.select :name,
-                    options_for_select(Item.pluck(:name).uniq, nil),
+                    [],
                     { include_blank: true },
                     {
+                      class: "",
                       data: {
-                        controller: 'tom-select',
-                        'tom-select-autofocus-value': true,
-                        }
+                        controller: 'tom-select-items',
+                        'tom-select-items-autofocus-value': true,
+                        action: "change->tom-select-items#autocomplete",
+                      }
                     }
     %>
   </div>
@@ -32,15 +38,11 @@
   <div class="my-5">
     <%= form.label :price %>
     <%= form.text_field :price, class: [
-      "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full",
+      "px-3 py-2 mt-2 w-full border rounded-lg bg-white text-sky-500",
       {
-        "border-gray-400 focus:outline-blue-600": item.errors[:price].none?,
-        "border-red-400 focus:outline-red-600": item.errors[:price].any?
+        "border-gray-400 focus:outline-sky-500": item.errors[:price].none?,
+        "border-red-400 focus:outline-red-500": item.errors[:price].any?
     } ] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.text_field :receipt_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full hidden", {"border-gray-400 focus:outline-blue-600": item.errors[:receipt_id].none?, "border-red-400 focus:outline-red-600": item.errors[:receipt_id].any?}] %>
   </div>
 
   <div class="my-5">
@@ -60,7 +62,12 @@
 
   <div class="my-5">
     <%= form.label :amount %>
-    <%= form.text_field :amount, value: 1, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": item.errors[:price].none?, "border-red-400 focus:outline-red-600": item.errors[:price].any?}] %>
+    <%= form.text_field :amount, value: 1, class: [
+      "px-3 py-2 mt-2 w-full border rounded-lg bg-white text-sky-500",
+      {
+        "border-gray-400 focus:outline-sky-500": item.errors[:price].none?,
+        "border-red-400 focus:outline-red-500": item.errors[:price].any?
+      } ] %>
   </div>
 
   <div class="inline">

@@ -30,7 +30,7 @@ class ReceiptsController < ApplicationController
 
     respond_to do |format|
       if @receipt.save
-        format.html { redirect_to @receipt, notice: "Receipt was successfully created." }
+        format.html { redirect_to receipt_items_path(@receipt), notice: "Receipt was successfully created." }
         format.json { render :show, status: :created, location: @receipt }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +44,7 @@ class ReceiptsController < ApplicationController
     authorize(@receipt)
     respond_to do |format|
       if @receipt.update(receipt_params)
-        format.html { redirect_to @receipt, notice: "Receipt was successfully updated." }
+        format.html { redirect_to receipt_items_path(@receipt), notice: "Receipt was successfully updated." }
         format.json { render :show, status: :ok, location: @receipt }
       else
         format.html { render :edit, status: :unprocessable_entity }

@@ -2,6 +2,15 @@ class ItemsController < ApplicationController
   before_action :set_item, only: %i[ destroy ]
   before_action :set_receipt, only: %i[ index create ]
 
+  def tom_search
+    authorize(Item)
+    query = params[:query] || ""
+    return nil if query.blank? || query.size < 3
+
+    @items = Item.joins(receipt: :team).where("LOWER(items.name) like LOWER(?)", "%#{query}%")
+    render formats: :json
+  end
+
   # GET /items or /items.json
   def index
     authorize(@receipt)
@@ -21,7 +30,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       if @item.save
         format.turbo_stream { render turbo_stream: turbo_stream.update("items", partial: "items/items", locals: { items: @items }) }
-        format.html { redirect_to receipt_items_path(@receipt)}
+        format.html { redirect_to receipt_items_path(@receipt) }
         format.json { render :index, status: :created, location: @item }
       else
         format.html { render :index, status: :unprocessable_entity }

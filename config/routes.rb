@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations',
-    confirmations: 'users/confirmations'
+    sessions: "users/sessions",
+    registrations: "users/registrations",
+    confirmations: "users/confirmations"
   }
   get "user/sign_up", to: "users/registrations#new"
 
@@ -14,12 +14,16 @@ Rails.application.routes.draw do
         patch "demote"
       end
     end
-    resources :invitations, only: [:index, :new, :create, :destroy]
+    resources :invitations, only: [ :index, :new, :create, :destroy ]
     resources :categories
+    resources :items do
+      collection do
+        get "tom_search"
+      end
+    end
     resources :receipts do
       resources :items
     end
-    resources :items
     resources :shops
     resources :roles
     resources :teams do

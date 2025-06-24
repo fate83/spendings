@@ -6,6 +6,10 @@ class ItemPolicy < ApplicationPolicy
     @item = item
   end
 
+  def tom_search?
+    true
+  end
+
   def index?
     true
   end
