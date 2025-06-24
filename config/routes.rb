@@ -15,11 +15,16 @@ Rails.application.routes.draw do
     end
     resources :items
     resources :shops
-    resources :memberships
     resources :roles
     resources :teams do
       collection do
         post "change"
+      end
+      resources :memberships do
+        member do
+          patch "promote"
+          patch "demote"
+        end
       end
     end
   end

@@ -1,0 +1,25 @@
+<tr id="<%= dom_id(user) %>" class="hover:bg-teal-200">
+  <td class="px-2 py-2">
+    <%= user.email %>
+  </td>
+  <td class="px-2 py-2">
+    <%= user.role.name %>
+  </td>
+  <td>
+    <% if current_user.admin? || current_user.superadmin? %>
+      <% unless user.admin? %>
+        <%= link_to "Promote",
+                    promote_membership_path(team, user), data: { turbo_method: :patch },
+                    class: "p-2 bg-red-400 text-black border rounded-lg hover:bg-red-200 hover:shadow-lg"
+        %>
+      <% else %>
+        <% if current_user.superadmin? %>
+          <%= link_to "Demote",
+                      demote_membership_path(team, user), data: { turbo_method: :patch },
+                      class: "p-2 bg-red-400 text-black border rounded-lg hover:bg-red-200 hover:shadow-lg"
+          %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </td>
+</tr>

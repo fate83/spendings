@@ -1,14 +1,26 @@
-<div id="<%= dom_id membership %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">Team:</strong>
-    <%= membership.team_id %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= membership.user_id %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Role:</strong>
-    <%= membership.role_id %>
-  </div>
-</div>
+<tr id="<%= dom_id(membership) %>" class="hover:bg-teal-200">
+  <td class="px-2 py-2">
+    <%= membership.id %>
+    <%= membership.user.email %>
+  </td>
+  <td class="px-2 py-2">
+    <%= membership.role.name %>
+  </td>
+  <td>
+    <% if current_user.admin? || current_user.superadmin? %>
+      <% if membership.role.id == 1 %>
+        <%  if current_user.superadmin? %>
+          <%=  link_to "Demote",
+                       demote_membership_path(membership), data: { turbo_method: :patch },
+                       class: "p-2 bg-red-400 text-black border rounded-lg hover:bg-red-200 hover:shadow-lg"
+           %>
+        <%  end %>
+      <%  else %>
+        <%=  link_to "Promote",
+                      promote_membership_path(membership), data: { turbo_method: :patch },
+                      class: "p-2 bg-red-400 text-black border rounded-lg hover:bg-red-200 hover:shadow-lg"
+        %>
+      <%  end %>
+    <% end %>
+  </td>
+</tr>

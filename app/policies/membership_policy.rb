@@ -16,6 +16,14 @@ class MembershipPolicy < ApplicationPolicy
   alias :update :index?
   alias :destroy :index?
 
+  def promote?
+    user.admin? || user.superadmin?
+  end
+
+  def demote?
+    user.superadmin?
+  end
+
   class Scope < ApplicationPolicy::Scope
     def resolve
       scope.all

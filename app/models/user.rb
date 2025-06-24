@@ -27,4 +27,8 @@ class User < ApplicationRecord
     Membership.find_by(user: self, team: current_team)
   end
   alias :current_membership :membership
+
+  def role
+    membership.role
+  end
 end

@@ -10,4 +10,8 @@ class Team < ApplicationRecord
   def admins
     users.where(memberships: { role_id: 1 })
   end
+
+  def memberships_orderd_by_roles
+    memberships.joins(:role).order(role: {id: :asc})
+  end
 end

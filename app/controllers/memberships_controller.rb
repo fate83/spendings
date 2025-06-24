@@ -1,10 +1,10 @@
 class MembershipsController < ApplicationController
-  before_action :set_membership, only: %i[ show edit update destroy ]
+  before_action :set_membership, only: %i[ show edit update destroy promote demote ]
+  before_action :set_team, only: %i[ index ]
 
   # GET /memberships or /memberships.json
   def index
-    authorize(Membership)
-    @memberships = Membership.all
+    authorize(@team)
   end
 
   # GET /memberships/1 or /memberships/1.json
@@ -64,7 +64,27 @@ class MembershipsController < ApplicationController
     end
   end
 
+  def promote
+    authorize(@membership)
+    @membership.update(role: Role.find(1))
+    render turbo_stream: turbo_stream.update(
+      "memberships", partial: "memberships/memberships", locals: { team: @membership.team }
+    )
+  end
+
+  def demote
+    authorize(@membership)
+    @membership.update(role: Role.find(2))
+    render turbo_stream: turbo_stream.update(
+      "memberships", partial: "memberships/memberships", locals: { team: @membership.team }
+    )
+  end
+
   private
+    def set_team
+      @team = Team.find(params.expect(:team_id))
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_membership
       @membership = Membership.find(params.expect(:id))

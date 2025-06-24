@@ -5,7 +5,11 @@
 - [x] Dashboar mit Statistiken
 - [x] User/Teams/Memberships/Roles
 - [x] Current Team / Switch Teams
-- [ ] Invitations
+- [x] Invitations
 - [x] Role-based Permissions
-- [ ] Login forms Styling
-- 
+- [-] Login forms Styling
+- [x] Promote/Demote Users
+- [x] Team/Show View with all users
+- [ ] Update List views
+- [ ] I18n
+- [ ] enhance Kassenbons#index add sum, entry count, etc 

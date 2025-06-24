@@ -1,0 +1,4 @@
+<h1 class="text-4xl"><%= @team.name %></h1>
+<turbo-frame id="users">
+  <%= render partial: "users/users", locals: { team: @team } %>
+</turbo-frame>
