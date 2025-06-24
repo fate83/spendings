@@ -1,38 +1,51 @@
 <div>
-  <h1 class="text-3xl">
-    Gesamt
+  <h1 class="text-3xl text-center">
+    Gesamtausgaben 2025
   </h1>
+</div>
+
+<div class="text-center">
+  <p>
+  <span>
+    Zusammen:
+  </span>
+    <%= @total_sum %> €
+  </p>
 </div>
 
 <hr>
 
-Summe: <%= @total_sum %>
-<ul>
+<ul class="mt-2">
   <% @total_categories.each do |key, value| %>
-    <li>
-      <%= key %>:
-      <%= value %>
-      <%= ((value / @total_sum) * 100).round(2) %>%
+    <li class="m-2 flex flex-row gap-4">
+      <div class="w-1/2 flex flex-row-reverse bg-orange-50 rounded-sm h-12">
+        <div class="flex bg-sky-500 h-12 rounded-sm" style="width: <%= ((value / @total_sum) * 100).round(2) %>%"></div>
+      </div>
+      <div class="flex h-12 w-1/2 display: inline-flex align-baseline text-left items-center text-nowrap">
+        <%= key %>: <%= value %> € (<%= ((value / @total_sum) * 100).round(2) %>%)
+      </div>
     </li>
   <% end %>
 </ul>
 
-<hr>
-
 <ul>
   <% @sum_months.each do |month, total| %>
-    <li>
-      <%= Date::MONTHNAMES[month] %>:
-      <%= total %>
-      <hr>
+    <li class="text-center">
+      <h2 class="m-2 mt-4 text-2xl">
+        <%= Date::MONTHNAMES[month] %>:
+        <%= total %> €
+      </h2>
       <ul>
         <% @sum_months_categories[month].each do |category, sum| %>
-          <li>
-            <%= category %>:
-            <%= sum %>
-            <%= ((sum / total) * 100).round(2) %>%
+          <li class="m-2 flex flex-row gap-4">
+            <div class="w-1/2 flex flex-row-reverse bg-orange-50 rounded-sm h-12">
+              <div class="flex bg-sky-500 h-12 rounded-sm" style="width: <%= ((sum / total) * 100).round(2) %>%"></div>
+            </div>
+            <div class="flex h-12 w-1/2 display: inline-flex align-baseline text-left items-center text-nowrap">
+              <%= category %>: <%= sum %> € (<%= ((sum / total) * 100).round(2) %>%)
+            </div>
           </li>
-      <% end %>
+        <% end %>
       </ul>
     </li>
   <% end %>
