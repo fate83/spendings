@@ -8,6 +8,12 @@ Rails.application.routes.draw do
 
   get "dashboards/index"
   shallow do
+    resources :users do
+      member do
+        patch "promote"
+        patch "demote"
+      end
+    end
     resources :invitations, only: [:index, :new, :create, :destroy]
     resources :categories
     resources :receipts do

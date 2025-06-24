@@ -9,12 +9,12 @@ class MembershipPolicy < ApplicationPolicy
   def index?
     user.superadmin?
   end
-  alias :show :index?
-  alias :new :index?
-  alias :edit :index?
-  alias :create :index?
-  alias :update :index?
-  alias :destroy :index?
+  alias :show? :index?
+  alias :new? :index?
+  alias :edit? :index?
+  alias :create? :index?
+  alias :update? :index?
+  alias :destroy? :index?
 
   def promote?
     user.admin? || user.superadmin?

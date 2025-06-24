@@ -6,9 +6,17 @@ class UserPolicy < ApplicationPolicy
     @record = record
   end
 
-  def show?
-    true
+  def index?
+    user.superadmin?
   end
+  alias :show? :index?
+  alias :new? :index?
+  alias :edit? :index?
+  alias :create? :index?
+  alias :update? :index?
+  alias :destroy? :index?
+  alias :promote? :index?
+  alias :demote? :index?
 
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!

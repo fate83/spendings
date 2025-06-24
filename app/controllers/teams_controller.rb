@@ -31,7 +31,7 @@ class TeamsController < ApplicationController
     respond_to do |format|
       if @team.save
         Membership.create(user: current_user, team: @team, role_id: 1)
-        format.html { redirect_to @team, notice: "Team was successfully created." }
+        format.html { redirect_to teams_path, notice: "Team was successfully created." }
         format.json { render :show, status: :created, location: @team }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,7 +46,7 @@ class TeamsController < ApplicationController
 
     respond_to do |format|
       if @team.update(team_params)
-        format.html { redirect_to @team, notice: "Team was successfully updated." }
+        format.html { redirect_to teams_path, notice: "Team was successfully updated." }
         format.json { render :show, status: :ok, location: @team }
       else
         format.html { render :edit, status: :unprocessable_entity }

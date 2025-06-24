@@ -1,21 +1,34 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: %i[ destroy promote demote ]
   def index
-    @team = Team.find(params[:id])
-    authorize(@team)
+    authorize(User)
+    @users = User.order(:id)
+  end
+
+  def destroy
+    authorize(@user)
+    @user.destroy
+    redirect_to users_url
   end
 
   def promote
-    @user = User.find(params[:id])
     authorize(@user)
-    @user.membership.update(role: Role.find(1))
-    render turbo_stream: turbo_stream.replace("user_#{@user.id}", partial: "users/user", locals: { user: @user })
+    @user.update(superadmin: true)
+    render turbo_stream: turbo_stream.update(
+      "users", partial: "users/users", locals: { users: User.order(:id) }
+    )
   end
 
   def demote
-    @team = Team.find(params[:team_id])
-    @user = User.find(params[:id])
     authorize(@user)
-    Membership.find_by!(user: @user, team: @team).update(role: Role.find(2))
-    render turbo_stream: turbo_stream.replace("user_#{@user.id}", partial: "users/user", locals: { user: @user })
+    @user.update(superadmin: false)
+    render turbo_stream: turbo_stream.update(
+      "users", partial: "users/users", locals: { users: User.order(:id) }
+    )
+  end
+
+  private
+  def set_user
+    @user = User.find(params.expect(:id))
   end
 end

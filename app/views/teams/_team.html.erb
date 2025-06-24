@@ -1,7 +1,20 @@
-<div id="<%= dom_id team %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
+<tr id="<%= dom_id(team) %>" class="hover:bg-teal-200">
+  <td class="px-2 py-2">
     <%= link_to team.name, team_memberships_path(team), class: "w-full sm:w-auto text-center px-3.5 py-2.5 text-sky-500 hover:text-sky-200 inline-block font-medium" %>
-    (<%= team.users.count %> Users)
-  </div>
-</div>
-
+  </td>
+  <td class="px-2 py-2">
+    <%= team.memberships.count %> Benutzer
+  </td>
+  <td>
+    <% if current_user.admin? || current_user.superadmin? %>
+      <%=  link_to "Bearbeiten",
+                   edit_team_path(team), data: { turbo: false },
+                   class: "p-2 bg-sky-500 text-black border rounded-lg hover:bg-orange-500 hover:shadow-lg"
+      %>
+      <%=  link_to "Löschen",
+                   team, data: { turbo_method: :delete, turbo_confirm: "Safe löschen?" },
+                   class: "p-2 bg-red-400 text-black border rounded-lg hover:bg-orange-500 hover:shadow-lg"
+      %>
+    <% end %>
+  </td>
+</tr>

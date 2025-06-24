@@ -19,9 +19,9 @@
           <div class="pt-2">
             <%= render partial: 'layouts/shared/sidebar_action',
                        locals: {
-                         path: new_user_registration_path(token: Invitation.last.token),
+                         path: new_invitation_path,
                          icon: render(partial: 'layouts/shared/icons/add_icon'),
-                         text: "Einladung"
+                         text: "Neue Einladung"
                        } %>
           </div>
         </li>
@@ -93,6 +93,16 @@
                          path: roles_path,
                          icon: render(partial: 'layouts/shared/icons/role_icon'),
                          text: "Roles"
+                       } %>
+          </div>
+        </li>
+        <li>
+          <div class="pt-2">
+            <%= render partial: 'layouts/shared/sidebar_link',
+                       locals: {
+                         path: users_path,
+                         icon: render(partial: 'layouts/shared/icons/role_icon'),
+                         text: "Users"
                        } %>
           </div>
         </li>

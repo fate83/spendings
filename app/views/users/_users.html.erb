@@ -2,12 +2,14 @@
   <thead>
   <tr>
     <th class="px-4 py-2 bg-orange-500 border border-gray-500">E-Mail</th>
-    <th class="px-4 py-2  bg-orange-500 border border-gray-500">Role</th>
+    <th class="px-4 py-2 bg-orange-500 border border-gray-500">Teams</th>
+    <th class="px-4 py-2 bg-orange-500 border border-gray-500">Confirmed</th>
+    <th class="px-4 py-2 bg-orange-500 border border-gray-500">Superadmin</th>
     <th class="px-4 py-2  bg-orange-500 border border-gray-500"></th>
   </tr>
   </thead>
   <tbody>
-  <% team.role_ordered_users.each do |user| %>
+  <% users.each do |user| %>
     <%= render partial: "users/user", locals: { user: user } %>
   <% end %>
   </tbody>
