@@ -1,0 +1,2 @@
+cat /etc/letsencrypt/live/{{ fqdn }}/fullchain.pem /etc/letsencrypt/live/{{ fqdn }}/privkey.pem > /etc/ssl/private/{{ fqdn }}.pem
+chmod 600 /etc/ssl/private/{{ fqdn }}.pem

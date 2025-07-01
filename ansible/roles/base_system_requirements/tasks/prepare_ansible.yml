@@ -1,0 +1,30 @@
+---
+- name: create group for ansible service user
+  tags: bootstrap
+  user:
+    name: ansible
+  when: ansible_user_id == "root"
+
+- name: create ansible service user
+  tags: bootstrap
+  user:
+    name: ansible
+    group: ansible
+  when: ansible_user_id == "root"
+
+- name: add ssh key for ansible service user
+  tags: bootstrap
+  authorized_key:
+    user: ansible
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOlMzfTcCy4Q67uUATixDpVrqNgtAiv35DTf9JXMHvQ7"
+  when: ansible_user_id == "root"
+
+- name: add sudoers file for ansible service user
+  tags: bootstrap
+  copy:
+    src: sudoers_ansible
+    dest: /etc/sudoers.d/ansible
+    owner: root
+    group: root
+    mode: 0440
+  when: ansible_user_id == "root"

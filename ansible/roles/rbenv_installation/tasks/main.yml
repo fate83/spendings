@@ -1,0 +1,30 @@
+---
+- name: install rbenv
+  become_user: deploy
+  tags: rails,rbenv
+  git:
+    repo: "https://github.com/rbenv/rbenv.git"
+    dest: "/home/deploy/.rbenv"
+    version: master
+
+- name: install ruby-build plugin
+  become_user: deploy
+  tags: rails,rbenv
+  git:
+    repo: "https://github.com/rbenv/ruby-build.git"
+    dest: "/home/deploy/.rbenv/plugins/ruby-build"
+    version: master
+
+- name: Add rbenv to PATH in .bashrc
+  tags: rails,rbenv
+  lineinfile:
+    path: "/home/deploy/.bashrc"
+    line: 'export PATH="$HOME/.rbenv/bin:$PATH"'
+    state: present
+
+- name: Initialize rbenv automatically in .bashrc
+  tags: rails,rbenv
+  lineinfile:
+    path: "/home/deploy/.bashrc"
+    line: 'eval "$(rbenv init -)"'
+    state: present

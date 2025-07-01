@@ -1,0 +1,9 @@
+---
+- name: "enable log rotage for rails app"
+  tags: logrotage
+  template:
+    src: application.j2
+    dest: /etc/logrotate.d/application
+    owner: root
+    group: root
+    mode: 644

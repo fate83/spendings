@@ -1,0 +1,133 @@
+---
+- name: create deployment root folder
+  become_user: deploy
+  tags: capistrano
+  file:
+    path: "{{ deployment_root }}"
+    state: directory
+    owner: deploy
+    group: deploy
+    mode: "0755"
+
+- name: create releases folder
+  become_user: deploy
+  tags: capistrano
+  file:
+    path: "{{ deployment_root }}/releases"
+    state: directory
+    owner: deploy
+    group: deploy
+    mode: "0755"
+
+- name: create repo folder
+  become_user: deploy
+  tags: capistrano
+  file:
+    path: "{{ deployment_root }}/repo"
+    state: directory
+    owner: deploy
+    group: deploy
+    mode: "0755"
+
+- name: create shared folder
+  become_user: deploy
+  tags: capistrano
+  file:
+    path: "{{ deployment_root }}/shared"
+    state: directory
+    owner: deploy
+    group: deploy
+    mode: "0755"
+
+- name: create shared bundle folder
+  become_user: deploy
+  tags: capistrano
+  file:
+    path: "{{ deployment_root }}/shared/bundle"
+    state: directory
+    owner: deploy
+    group: deploy
+    mode: "0755"
+
+- name: create shared config folder
+  become_user: deploy
+  tags: capistrano
+  file:
+    path: "{{ deployment_root }}/shared/config"
+    state: directory
+    owner: deploy
+    group: deploy
+    mode: "0755"
+
+- name: create shared log folder
+  tags: capistrano
+  file:
+    path: "{{ deployment_root }}/shared/log"
+    state: directory
+    owner: deploy
+    group: deploy
+    mode: "0755"
+
+- name: create shared public folder
+  tags: capistrano
+  file:
+    path: "{{ deployment_root }}/shared/public"
+    state: directory
+    owner: deploy
+    group: deploy
+    mode: "0755"
+
+- name: create shared tmp folder
+  tags: capistrano
+  file:
+    path: "{{ deployment_root }}/shared/tmp"
+    state: directory
+    owner: deploy
+    group: deploy
+    mode: "0755"
+
+- name: create current folder
+  tags: capistrano
+  file:
+    path: "{{ deployment_root }}/current"
+    state: directory
+    owner: deploy
+    group: deploy
+    mode: "0755"
+
+- name: create symlink to current release folder
+  tags: capistrano
+  file:
+    src: "{{ deployment_root }}/current"
+    dest: "/home/deploy/current"
+    state: link
+    owner: deploy
+    group: deploy
+    force: true
+
+- name: create symlink to releases folder
+  tags: capistrano
+  file:
+    src: "{{ deployment_root }}/releases"
+    dest: "/home/deploy/releases"
+    state: link
+    owner: deploy
+    group: deploy
+
+- name: create symlink to shared config folder
+  tags: capistrano
+  file:
+    src: "{{ deployment_root }}/shared/config"
+    dest: "/home/deploy/config"
+    state: link
+    owner: deploy
+    group: deploy
+
+- name: create symlink to shared log folder
+  tags: capistrano
+  file:
+    src: "{{ deployment_root }}/shared/log"
+    dest: "/home/deploy/log"
+    state: link
+    owner: deploy
+    group: deploy

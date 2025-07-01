@@ -1,0 +1,24 @@
+---
+- name: add shared configs
+  tags: configs
+  template:
+    src: "{{ item.filename }}.j2"
+    dest: "{{ deployment_root }}/{{ item.path | default('shared/config') }}/{{ item.filename }}"
+    owner: deploy
+    group: deploy
+    mode: 0644
+    force: no
+  with_items:
+    - { filename: "database.yml" }
+
+- name: add dotfiles
+  tags: configs
+  template:
+    src: "{{ item.filename }}.j2"
+    dest: "{{ deployment_root }}/shared/.{{ item.filename }}"
+    owner: deploy
+    group: deploy
+    mode: 0644
+    force: yes
+  with_items:
+    - { filename: "ruby-version" }

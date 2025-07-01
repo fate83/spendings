@@ -1,0 +1,27 @@
+---
+- name: install updates
+  hosts: all
+  pre_tasks:
+    - name: install updates
+      become: yes
+      tags: always
+      apt:
+        upgrade: dist
+        update_cache: yes
+
+- name: install rails environment and reverse proxy
+  hosts: all
+  become: yes
+  roles:
+    - config_ssh
+    - config_locale
+    - config_deploy_user
+    - install_rails_requirements
+    - config_certbot_without_wildcards
+    - config_reverse_proxy
+    - rbenv_installation
+    - ruby_installation
+    - capistrano_folder_structure
+    - application_config_files
+    - systemd_services
+    - logrotate

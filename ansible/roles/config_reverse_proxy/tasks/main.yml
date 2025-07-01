@@ -1,0 +1,43 @@
+- name: install package requirements
+  tags: reverseproxy,requirements
+  package:
+    name: "{{ packages }}"
+    state: latest
+
+- name: copy site config file
+  tags: reverseproxy
+  template:
+    src: site_config.j2
+    dest: /etc/nginx/sites-available/site
+    owner: root
+    group: root
+    mode: 0644
+    force: yes
+
+- name: remove default site
+  tags: reverseproxy
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: create nginx errors folder
+  tags: reverseproxy
+  file:
+    path: /etc/nginx/errors
+    state: directory
+    mode: "0755"
+
+- name: copy 502.html error file
+  tags: reverseproxy
+  copy:
+    src: 502.html
+    dest: /etc/nginx/errors/502.html
+    mode: "0644"
+
+- name: Create symbolic link to site config
+  tags: reverseproxy
+  file:
+    src: "/etc/nginx/sites-available/site"
+    dest: "/etc/nginx/sites-enabled/site"
+    state: link
+  notify: reload_nginx

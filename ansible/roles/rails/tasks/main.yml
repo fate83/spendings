@@ -1,0 +1,74 @@
+- name: install package requirements
+  tags: rails,requirements
+  apt:
+    name:
+      - build-essential
+      - libssl-dev
+      - libyaml-dev
+      - libreadline6-dev
+      - libmysqlclient-dev
+      - zlib1g-dev
+      - build-essential
+      - git
+      - imagemagick
+      - libmagickwand-dev
+      - nginx
+    state: latest
+
+- name: install rbenv
+  become_user: deploy
+  tags: rails,rbenv
+  git:
+    repo: "https://github.com/rbenv/rbenv.git"
+    dest: "/home/deploy/.rbenv"
+    version: master
+
+- name: install ruby-build plugin
+  become_user: deploy
+  tags: rails,rbenv
+  git:
+    repo: "https://github.com/rbenv/ruby-build.git"
+    dest: "/home/deploy/.rbenv/plugins/ruby-build"
+    version: master
+
+- name: Add rbenv to PATH in .bashrc
+  tags: rails,rbenv
+  lineinfile:
+    path: "/home/deploy/.bashrc"
+    line: 'export PATH="$HOME/.rbenv/bin:$PATH"'
+    state: present
+
+- name: Initialize rbenv automatically in .bashrc
+  tags: rails,rbenv
+  lineinfile:
+    path: "/home/deploy/.bashrc"
+    line: 'eval "$(rbenv init -)"'
+    state: present
+
+- name: Install Ruby
+  become_user: deploy
+  tags: rails,ruby
+  shell:
+    cmd: /bin/bash -ic ". /home/deploy/.bashrc && rbenv install 3.0.3 --skip-existing && rbenv global 3.0.3"
+    creates: /home/deploy/.rbenv/versions/3.0.3/bin/ruby
+
+- name: Install nvm
+  become_user: deploy
+  tags: rails,node
+  shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+    creates=/home/deploy/.nvm/nvm.sh
+
+- name: Install node and set version
+  become_user: deploy
+  tags: rails,node
+  shell: >
+    /bin/bash -c "source ~/.nvm/nvm.sh && nvm install 18 && nvm alias default 18 && nvm use default 22.11"
+    creates=/home/deploy/.nvm/alias
+
+- name: Install yarn via npm
+  become_user: deploy
+  tags: rails,node,yarn
+  shell: >
+    /bin/bash -c "source ~/.nvm/nvm.sh && npm install -g yarn"
+    creates=/home/deploy/.nvm/versions/node/v18.20.3/bin/yarn

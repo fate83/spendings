@@ -1,0 +1,9 @@
+{{ deployment_root }}/shared/log/*.log {
+  weekly
+  missingok
+  rotate 53
+  compress
+  delaycompress
+  notifyempty
+  copytruncate
+}

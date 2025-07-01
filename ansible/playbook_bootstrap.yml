@@ -1,0 +1,15 @@
+---
+- name: bootstrap Ubuntu 24.04 vServer
+  hosts: bootstrap
+  pre_tasks:
+    - name: install updates
+      tags: always
+      apt:
+        upgrade: dist
+        update_cache: yes
+      when: ansible_user_id == "root"
+
+- name: Base Instalaltion
+  hosts: bootstrap
+  roles:
+    - role: base_system_requirements

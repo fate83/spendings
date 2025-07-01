@@ -1,0 +1,13 @@
+---
+- name: Ensure a locale exists
+  tags: locale
+  community.general.locale_gen:
+    name: en_US.UTF-8
+    state: present
+
+- name: Set LC_ALL env var
+  lineinfile:
+    dest: /etc/locale.conf
+    regexp: "^LC_ALL"
+    line: "LC_ALL=en_US.UTF-8"
+    state: present

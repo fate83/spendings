@@ -1,0 +1,38 @@
+---
+- name: install certbot snap with option --classic
+  tags: letsencrypt
+  community.general.snap:
+    name: certbot
+    classic: yes
+
+- name: install certificates and for domains {{ fqdn }}
+  tags: letsencrypt
+  command:
+    cmd: certbot --nginx -n --agree-tos -m fate@primus-fatum.de -d {{ fqdn }}
+    creates: "/etc/letsencrypt/live/{{ fqdn }}"
+
+- name: "copy certbot renewal hook script"
+  tags: letsencrypt
+  template:
+    src: certbot_post_hook.j2
+    dest: /etc/letsencrypt/renewal-hooks/post/01_certbot_post_hook
+    owner: root
+    group: root
+    mode: "0700"
+
+- name: "copy nginx reload script"
+  tags: letsencrypt
+  template:
+    src: reload_nginx_hook.j2
+    dest: /etc/letsencrypt/renewal-hooks/post/02_reload_nginx_hook
+    owner: root
+    group: root
+    mode: "0700"
+  notify: reload_nginx
+
+- name: install renew job
+  tags: letsencrypt
+  command:
+    cmd: certbot renew
+    creates: "/etc/letsencrypt/renewal/{{ fqdn }}.conf"
+

@@ -1,0 +1,5 @@
+---
+deploy:
+  public_keys:
+    - "public_keys/fmueller-macbook"
+    - "public_keys/fmueller-workstation"

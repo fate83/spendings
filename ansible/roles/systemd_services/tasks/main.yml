@@ -1,0 +1,20 @@
+---
+- name: "install {{ item }} service"
+  tags: rails,services
+  template:
+    src: "{{ item }}.service"
+    dest: "/etc/systemd/system/{{ item }}.service"
+    mode: 0644
+  with_items:
+    - puma
+    - sidekiq
+
+- name: "Enable service {{ item }} and ensure it is not masked"
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    enabled: true
+    masked: no
+    state: started
+  with_items:
+    - puma
+    - sidekiq

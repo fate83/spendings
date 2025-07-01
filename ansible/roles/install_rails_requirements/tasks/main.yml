@@ -1,0 +1,5 @@
+---
+- name: install package requirements
+  package:
+    name: "{{ packages }}"
+    state: latest

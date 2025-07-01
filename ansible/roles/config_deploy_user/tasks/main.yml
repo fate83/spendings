@@ -1,0 +1,52 @@
+- name: create group for deploy user
+  tags: rails,docker
+  user:
+    name: deploy
+
+- name: add deploy user
+  tags: rails
+  user:
+    shell: /bin/bash
+    name: deploy
+    group: deploy
+    state: present
+    create_home: yes
+
+- name: fetch unix groups
+  shell: "getent group | cut -d: -f1"
+  register: unix_groups
+  changed_when: false
+
+- name: add deploy user to docker group if exists
+  tags: rails,docker
+  user:
+    name: deploy
+    groups: docker
+    append: yes
+  when: "'docker' in unix_groups.stdout_lines"
+
+- name: add ssh key for deploy user
+  tags: rails
+  authorized_key:
+    user: deploy
+    state: present
+    key: "{{ lookup('file', item) }}"
+  loop: "{{ deploy.public_keys }}"
+
+- name: add .bash_profile to home folder
+  tags: deploy
+  copy:
+    src: bash_profile
+    dest: /home/deploy/.bash_profile
+    owner: deploy
+    group: deploy
+    mode: 0644
+
+- name: add sudoers file
+  tags: deploy
+  copy:
+    src: sudoer_deploy
+    dest: /etc/sudoers.d/deploy
+    owner: root
+    group: root
+    mode: 0440

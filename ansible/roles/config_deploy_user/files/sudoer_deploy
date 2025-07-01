@@ -1,0 +1,3 @@
+deploy ALL=NOPASSWD:/bin/systemctl start puma.service, /bin/systemctl stop puma.service, /bin/systemctl restart puma.service, /bin/systemctl status puma.service
+deploy ALL=NOPASSWD:/bin/systemctl start sidekiq.service, /bin/systemctl stop sidekiq.service, /bin/systemctl restart sidekiq.service, /bin/systemctl status sidekiq.service
+deploy ALL=NOPASSWD:/bin/systemctl start postgresql.service, /bin/systemctl stop postgresql.service, /bin/systemctl restart postgresql.service, /bin/systemctl status postgresql.service

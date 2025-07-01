@@ -1,0 +1,16 @@
+---
+- name: add ssh key for ansible service user
+  tags: always
+  authorized_key:
+    user: ansible
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILaQkCxaVqFy5oMpyXq2jA+nGIbS6W7N4xXl99i4k8ja iversity ansible master key
+    exclusive: true
+    state: present
+
+- name: add root admin keys
+  tags: always
+  authorized_key:
+    user: root
+    key: "{{ lookup('file', item) }}"
+    state: present
+  loop: "{{ root_keys }}"

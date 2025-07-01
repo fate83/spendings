@@ -1,0 +1,4 @@
+---
+site_root: "/home/deploy/capistrano/site/current"
+packages:
+  - nginx
