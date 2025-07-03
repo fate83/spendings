@@ -9,6 +9,28 @@
     - puma
     - sidekiq
 
+- name: create override folders
+  tags: capistrano
+  file:
+    path: "/etc/systemd/system/{{ item }}.service.d/"
+    state: directory
+    owner: deploy
+    group: deploy
+    mode: "0755"
+  with_items:
+    - puma
+    - sidekiq
+
+- name: "add service overrides"
+  tags: rails,services
+  template:
+    src: "override.conf"
+    dest: "/etc/systemd/system/{{ item }}.service.d/override.conf"
+    mode: 0644
+  with_items:
+    - puma
+    - sidekiq
+
 - name: "Enable service {{ item }} and ensure it is not masked"
   ansible.builtin.systemd_service:
     name: "{{ item }}"
