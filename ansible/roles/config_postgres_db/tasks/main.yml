@@ -15,6 +15,7 @@
     path: "/home/deploy/.bashrc"
     line: "export {{ DB_ENV_VAR }}={{ database_password }}"
     state: present
+    insertbefore: BOF
 
 # Manually:
 ## Log in as root
