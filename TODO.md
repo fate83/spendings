@@ -12,12 +12,26 @@
 - [x] Team/Show View with all users
 - [x] User Admin view
 - [x] Promote/Demote Superadmins
-- [ ] Dashboard with colors
-- [ ] Update other List views
-  - Shops
-  - Categories
-  - Receipts
-  - Invitations
-  - Roles
+- [x] Dashboard with colors
+- [x] Update other List views
+  - [ ] Shops
+  - [ ] Categories
+  - [ ] Receipts
+  - [ ] Invitations
+  - [ ] Roles
+- [x] Ansible scripts for server setup
+- [x] Setup Capistrano
+  - [x] Base setup
+  - [x] Advanced setup
+- [x] Serve static assets with nginx
+- [ ] Enable mailing in production
 - [ ] I18n
-- [ ] enhance Kassenbons#index add sum, entry count, etc 
+- [ ] enhance Kassenbons#index add sum, entry count, etc
+- [ ] Gem annotate
+- [ ] Gem against n+1 queries
+- [ ] OCR/AI for automatische Kassenbon-Erkennung
+- [ ] Statistiken für Kategorien 
+- [ ] Configure Github Actions
+- [ ] Tests
+  - RSpec oder Minitest?
+- [ ] Env vars in production
