@@ -25,3 +25,4 @@
     - application_config_files
     - systemd_services
     - logrotate
+    - config_postgres_db
