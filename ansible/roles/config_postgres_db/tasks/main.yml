@@ -1,0 +1,22 @@
+---
+- name: "Install Postgresql Server"
+  package:
+    name: "{{ packages }}"
+    state: latest
+
+- name: Start and enable PostgreSQL service
+  systemd:
+    name: postgresql
+    state: started
+    enabled: yes
+
+# Manually:
+## Log in as root
+## sed -i '/^local/s/peer/scram-sha-256/' /etc/postgresql/16/main/pg_hba.conf
+## sudo su - postgres
+## psql
+## ALTER USER postgres WITH ENCRYPTED PASSWORD 'nKNvaZU9LrX7EA7T2a9U';
+## CREATE USER spendings_production ENCRYPTED PASSWORD 'nKNvaZU9LrX7EA7T2a9U';
+## ALTER USER spendings_production CREATEDB;
+## createdb -U spendings_production -W spendings_production
+## psql -U spendings_production -W
