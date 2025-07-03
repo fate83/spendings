@@ -7,7 +7,7 @@ production:
   primary: &primary_production
     <<: *default
     database: spendings_production
-    username: spendings
+    username: spendings_production
     password: <%= ENV["SPENDINGS_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
