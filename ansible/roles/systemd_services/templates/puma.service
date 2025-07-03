@@ -29,7 +29,7 @@ UMask=0002
 RestartSec=1
 Restart=on-failure
 # Output goes to /var/log/syslog and the systemd journaling system.
-StandardOutput=journal
+StandardOutput={{ deployment_root }}/log/production.log
 StandardError=journal
 # This will default to "bundler" if we don't specify it.
 SyslogIdentifier=puma
