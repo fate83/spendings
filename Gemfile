@@ -55,6 +55,11 @@ group :development do
   gem "capistrano", "~> 3.19", require: false
   # Rails specific Capistrano tasks
   gem "capistrano-rails", "~> 1.7", require: false
+  # rbenv integration for Capistrano
+  gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
+  # Bundler support for Capistrano 3.x
+  gem 'capistrano-bundler', '~> 1.1', '>= 1.1.4'
+
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
