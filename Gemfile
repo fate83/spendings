@@ -51,6 +51,10 @@ group :development, :test do
 end
 
 group :development do
+  # Capistrano is a utility and framework for executing commands in parallel on multiple remote machines, via SSH.
+  gem "capistrano", "~> 3.19", require: false
+  # Rails specific Capistrano tasks
+  gem "capistrano-rails", "~> 1.7", require: false
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
