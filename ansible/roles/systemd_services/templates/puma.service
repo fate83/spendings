@@ -21,7 +21,7 @@ After=network.target
 [Service]
 Type=simple
 WorkingDirectory={{ deployment_root }}/current
-ExecStart=/bin/bash -c 'source /home/deploy/.nvm/nvm.sh && /home/deploy/.rbenv/shims/bundle exec rails s -e {{ rails_environment }} -p 3000'
+ExecStart=/bin/bash -c '/home/deploy/.rbenv/shims/bundle exec rails s -e {{ rails_environment }} -p 3000'
 User=deploy
 Group=deploy
 UMask=0002
