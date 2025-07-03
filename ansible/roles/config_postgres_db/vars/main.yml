@@ -1,9 +1,5 @@
 ---
-db_login_user: postgres
-db_login_user_password: nKNvaZU9LrX7EA7T2a9U
-db_username: spendings_production
-db_password: nKNvaZU9LrX7EA7T2a9U
-db_name: spendings_production
+DB_ENV_VAR: SPENDINGS_DATABASE_PASSWORD
 packages:
   - postgresql-common
   - postgresql

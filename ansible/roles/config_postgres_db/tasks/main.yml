@@ -10,6 +10,12 @@
     state: started
     enabled: yes
 
+- name: Add db_password to PATH in .bashrc
+  lineinfile:
+    path: "/home/deploy/.bashrc"
+    line: "export {{ DB_ENV_VAR }}={{ database_password }}"
+    state: present
+
 # Manually:
 ## Log in as root
 ## sed -i '/^local/s/peer/scram-sha-256/' /etc/postgresql/16/main/pg_hba.conf
