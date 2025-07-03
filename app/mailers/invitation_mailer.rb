@@ -7,6 +7,6 @@ class InvitationMailer < ApplicationMailer
   def email(invitation)
     @invitation = invitation
 
-    mail to: invitation.email, from: 'no-reply@fate.re'
+    mail to: invitation.email, from: "no-reply@primus-fatum.de"
   end
 end
