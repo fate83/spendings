@@ -9,19 +9,23 @@ class RolesController < ApplicationController
 
   # GET /roles/1 or /roles/1.json
   def show
+    authorize(@role)
   end
 
   # GET /roles/new
   def new
+    authorize(Role)
     @role = Role.new
   end
 
   # GET /roles/1/edit
   def edit
+    authorize(@role)
   end
 
   # POST /roles or /roles.json
   def create
+    authorize(Role)
     @role = Role.new(role_params)
 
     respond_to do |format|
@@ -37,6 +41,8 @@ class RolesController < ApplicationController
 
   # PATCH/PUT /roles/1 or /roles/1.json
   def update
+    authorize(@role)
+
     respond_to do |format|
       if @role.update(role_params)
         format.html { redirect_to @role, notice: "Role was successfully updated." }
@@ -50,6 +56,7 @@ class RolesController < ApplicationController
 
   # DELETE /roles/1 or /roles/1.json
   def destroy
+    authorize(@role)
     @role.destroy!
 
     respond_to do |format|
