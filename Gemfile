@@ -58,7 +58,7 @@ group :development do
   # rbenv integration for Capistrano
   gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
   # Bundler support for Capistrano 3.x
-  gem 'capistrano-bundler', '~> 1.1', '>= 1.1.4'
+  gem 'capistrano-bundler', '~> 2.1'
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
