@@ -107,19 +107,19 @@
           </div>
         </li>
       <% end %>
+      <li class="border-t-1 border-b-1">
+        Logout
+      </li>
+      <li>
+        <div class="pt-2">
+          <%= render partial: 'layouts/shared/sidebar_delete_link',
+                     locals: {
+                       path: destroy_user_session_path,
+                       icon: render(partial: 'layouts/shared/icons/logout_icon'),
+                       text: "Logout"
+                     } %>
+        </div>
+      </li>
     <% end %>
-    <li class="border-t-1 border-b-1">
-      Profil-Menü
-    </li>
-    <li>
-      <div class="pt-2">
-        <%= render partial: 'layouts/shared/sidebar_delete_link',
-                   locals: {
-                     path: destroy_user_session_path,
-                     icon: render(partial: 'layouts/shared/icons/logout_icon'),
-                     text: "Logout"
-                   } %>
-      </div>
-    </li>
   </ul>
 </aside>
