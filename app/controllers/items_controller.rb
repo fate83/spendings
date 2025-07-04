@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
     query = params[:query] || ""
     return nil if query.blank? || query.size < 3
 
-    @items = Item.joins(receipt: :team).where("LOWER(items.name) like LOWER(?)", "%#{query}%")
+    @items = Item.joins(receipt: :team).where("LOWER(items.name) like LOWER(?)", "%#{query}%").order(created_at: :desc)
     render formats: :json
   end
 
