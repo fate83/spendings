@@ -10,7 +10,7 @@ class DashboardsController < ApplicationController
     @total_sum = policy_scope(Item).pluck(:total).sum
     @total_categories = policy_scope(Item.joins(:category)).group(category: :name).sum(:total)
 
-    @sum_months = policy_scope(Item.joins(:receipt)).group('EXTRACT(MONTH FROM receipt.shopped_at)').reorder(nil).sum(:total)
+    @sum_months = policy_scope(Item.joins(:receipt)).group("EXTRACT(MONTH FROM receipt.shopped_at)").reorder(nil).sum(:total)
 
     @sum_months_categories = {}
     @sum_months.keys.each do |month|
@@ -19,7 +19,7 @@ class DashboardsController < ApplicationController
 
     policy_scope(Item).joins(:receipt)
                       .joins(:category)
-                      .group('EXTRACT(MONTH FROM receipt.shopped_at)')
+                      .group("EXTRACT(MONTH FROM receipt.shopped_at)")
                       .group(category: :name)
                       .reorder(nil)
                       .sum(:total).each do |groups, value|
