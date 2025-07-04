@@ -1,25 +1,17 @@
 <ul class="flex justify-between items-center p-4 bg-orange-50">
   <% if user_signed_in? %>
-  <li>
-    <%= render partial: 'layouts/shared/header_link',
-               locals: {
-                 path: root_path,
-                 icon: render(partial: 'layouts/shared/icons/home_icon'),
-                 text: "Dashboard"
-               } %>
-  </li>
-  <% if user_signed_in? %>
     <li>
-      <%= render partial: 'layouts/application/header/team_select' %>
+      <%= render partial: 'layouts/shared/header_link',
+                 locals: {
+                   path: root_path,
+                   icon: render(partial: 'layouts/shared/icons/home_icon'),
+                   text: "Dashboard"
+                 } %>
     </li>
-  <% end %>
-  <li>
-    <%= render partial: 'layouts/shared/header_delete_link',
-               locals: {
-                 path: destroy_user_session_path,
-                 icon: render(partial: 'layouts/shared/icons/logout_icon'),
-                 text: "Logout"
-               } %>
-  </li>
+    <% if user_signed_in? %>
+      <li>
+        <%= render partial: 'layouts/application/header/team_select' %>
+      </li>
+    <% end %>
   <% end %>
 </ul>
