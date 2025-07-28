@@ -71,7 +71,7 @@ group :test do
 end
 
 # Process manager for applications with multiple components
-gem "foreman", "~> 0.88.1"
+gem "foreman", "~> 0.90.0"
 
 # Flexible authentication solution for Rails with Warden
 gem "devise", "~> 4.9", ">= 4.9.3"
