@@ -27,6 +27,7 @@
 - [ ] Enable mailing in production
 - [ ] I18n
 - [ ] enhance Kassenbons#index add sum, entry count, etc
+- [ ] enhance Items#index add sum of receipt, entry count, etc
 - [ ] Gem annotate
 - [ ] Gem against n+1 queries
 - [ ] OCR/AI for automatische Kassenbon-Erkennung
@@ -34,4 +35,5 @@
 - [ ] Configure Github Actions
 - [ ] Tests
   - RSpec oder Minitest?
-- [ ] Env vars in production
+- [x] Env vars in production
+- [ ] Items#index in place editing of items in receipt
