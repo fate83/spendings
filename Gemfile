@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.2"
+gem "rails", "~> 8.0.3"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
@@ -15,7 +15,7 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem "tailwindcss-rails"
+gem "tailwindcss-rails", "~> 3.3.1"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
@@ -56,9 +56,9 @@ group :development do
   # Rails specific Capistrano tasks
   gem "capistrano-rails", "~> 1.7", require: false
   # rbenv integration for Capistrano
-  gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
+  gem "capistrano-rbenv", "~> 2.1", ">= 2.1.4"
   # Bundler support for Capistrano 3.x
-  gem 'capistrano-bundler', '~> 1.1', '>= 1.1.4'
+  gem "capistrano-bundler", "~> 1.1", ">= 1.1.4"
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
