@@ -59,6 +59,18 @@ group :development do
   gem "capistrano-rbenv", "~> 2.1", ">= 2.1.4"
   # Bundler support for Capistrano 3.x
   gem "capistrano-bundler", "~> 1.1", ">= 1.1.4"
+  # Provides a better error page for Rails and other Rack apps. Includes source code inspection, a live REPL and local/instance variable inspection for all stack frames.
+  # [https://github.com/BetterErrors/better_errors]
+  gem "better_errors", "~> 2.10", ">= 2.10.1"
+  # Retrieve the binding of a method's caller in MRI 1.9.2+ [https://github.com/banister/binding_of_caller]
+  gem "binding_of_caller", "~> 1.0", ">= 1.0.1"
+  # help to kill N+1 queries and unused eager loading. [https://github.com/flyerhzm/bullet]
+  gem "bullet", "~> 8.0", ">= 8.0.8"
+  # i18n-tasks helps you find and manage missing and unused translations. It analyses code statically for key usages,
+  # such as `I18n.t('some.key')`, in order to report keys that are missing or unused, pre-fill
+  # missing keys (optionally from Google Translate), and remove unused keys.
+  # [https://github.com/glebm/i18n-tasks]
+  gem "i18n-tasks", "~> 1.0", ">= 1.0.15"
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
