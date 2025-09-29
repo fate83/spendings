@@ -38,3 +38,6 @@
 
 # Ansible
 /ansible/vault-key
+
+# Rubymine
+/.idea/*
