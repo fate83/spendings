@@ -8,7 +8,7 @@ class DashboardsController < ApplicationController
 
   def statistics
     @total_sum = policy_scope(Item).pluck(:total).sum
-    @total_categories = policy_scope(Item.joins(:category)).group(category: :name).sum(:total)
+    @total_categories = policy_scope(Item.joins(:category)).group(category: :name).order(category: { name: :asc }).sum(:total)
 
     @sum_months = policy_scope(Item.joins(:receipt)).group("EXTRACT(MONTH FROM receipt.shopped_at)").reorder(nil).sum(:total)
 

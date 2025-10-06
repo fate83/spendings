@@ -1,6 +1,6 @@
 <div>
   <h1 class="text-3xl text-center">
-    Gesamtausgaben 2025
+    2025
   </h1>
 </div>
 
@@ -36,7 +36,8 @@
         <%= total %> €
       </h2>
       <ul>
-        <% @sum_months_categories[month].each do |category, sum| %>
+        <% policy_scope(Category.order(name: :asc)).pluck(:name).each do |category| %>
+          <% sum = @sum_months_categories[month][category] || 0.00 %>
           <li class="m-2 flex flex-row gap-4">
             <div class="w-1/2 flex flex-row-reverse bg-orange-50 rounded-sm h-12">
               <div class="flex bg-sky-500 h-12 rounded-sm" style="width: <%= ((sum / total) * 100).round(2) %>%"></div>
