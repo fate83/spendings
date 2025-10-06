@@ -47,6 +47,7 @@ Things you may want to cover:
     - [x] Base setup
     - [x] Advanced setup
 - [x] Serve static assets with nginx
+- [ ] Make items in place editable in receipt screen
 - [ ] Enable mailing in production
 - [ ] I18n
 - [ ] enhance Kassenbons#index add sum, entry count, etc
