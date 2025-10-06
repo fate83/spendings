@@ -40,7 +40,11 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 # Ruby library for working with the Tesseract OCR.
-gem 'rtesseract', '~> 3.1', '>= 3.1.4'
+gem "rtesseract", "~> 3.1", ">= 3.1.4"
+
+# A self-contained `tailwindcss` executable, wrapped up in a ruby gem. That's it. Nothing else.
+gem "tailwindcss-ruby", "~> 3.4"
+
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
