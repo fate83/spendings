@@ -12,14 +12,20 @@
   <% end %>
 
   <div class="my-5">
+    <%= form.label :shop_id %>
+    <%= form.collection_select :shop_id, current_user.team.shops.order(name: :asc), :id, :name, {}, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": receipt.errors[:shop_id].none?, "border-red-400 focus:outline-red-600": receipt.errors[:shop_id].any?}] %>
+  </div>
+
+  <div class="my-5">
     <%= form.label :shopped_at %>
     <%= form.date_field :shopped_at, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": receipt.errors[:shopped_at].none?, "border-red-400 focus:outline-red-600": receipt.errors[:shopped_at].any?}] %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :shop_id %>
-    <%= form.collection_select :shop_id, current_user.team.shops.order(name: :asc), :id, :name, {}, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": receipt.errors[:shop_id].none?, "border-red-400 focus:outline-red-600": receipt.errors[:shop_id].any?}] %>
-  </div>
+<!--  <div class="my-5">-->
+    <%#= form.label :bon %>
+    <%#= form.hidden_field :bon, value: receipt.bon if receipt.bon.attached? %>
+    <%#= form.file_field :bon, direct_upload: true, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full" %>
+<!--  </div>-->
 
   <div class="inline">
     <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
