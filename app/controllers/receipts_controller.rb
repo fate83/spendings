@@ -72,6 +72,6 @@ class ReceiptsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def receipt_params
-      params.expect(receipt: [ :shopped_at, :shop_id ])
+      params.expect(receipt: [ :shopped_at, :shop_id, :bon ])
     end
 end
