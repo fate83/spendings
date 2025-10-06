@@ -1,13 +1,14 @@
 <turbo-frame id="items" class="min-w-full divide-y divide-gray-200 space-y-5">
   <% if items.any? %>
-    <table class="border-collapse border border-gray-400 ...">
-      <thead>
+    <table class="w-full border-collapse border border-gray-400 bg-white text-sm dark:border-gray-500 dark:bg-gray-800">
+      <thead class=" bg-gray-50 dark:bg-gray-700">
       <tr>
-        <th class="border border-gray-300 ...">Bezeichnung</th>
-        <th class="border border-gray-300 ...">Anzahl</th>
-        <th class="border border-gray-300 ...">Gesamtpreis</th>
-        <th class="border border-gray-300 ...">Kategorie</th>
-        <th class="border border-gray-300 ..."></th>
+        <th class="w-2/3 border border-gray-300 p-4 text-center font-semibold text-gray-900 dark:border-gray-600 dark:text-gray-200">Bezeichnung</th>
+        <th class="w-1/5 border border-gray-300 p-4 text-center font-semibold text-gray-900 dark:border-gray-600 dark:text-gray-200">Anzahl</th>
+        <th class="w-1/5 border border-gray-300 p-4 text-center font-semibold text-gray-900 dark:border-gray-600 dark:text-gray-200">Preis</th>
+        <th class="w-1/5 border border-gray-300 p-4 text-center font-semibold text-gray-900 dark:border-gray-600 dark:text-gray-200">Gesamtpreis</th>
+        <th class="w-2/5 border border-gray-300 p-4 text-center font-semibold text-gray-900 dark:border-gray-600 dark:text-gray-200">Kategorie</th>
+        <th class="w-1/5 border border-gray-300 p-4 text-center font-semibold text-gray-900 dark:border-gray-600 dark:text-gray-200"></th>
       </tr>
       </thead>
       <tbody>

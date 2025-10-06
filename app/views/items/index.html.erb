@@ -9,6 +9,14 @@
     Geschäft: <%= @receipt.shop.name %>
   </div>
 
+  <div>
+    Summe: <%= @receipt.total %>
+  </div>
+
+  <div>
+    Positionen: <%= @receipt.items.sum(:amount) || 0 %>
+  </div>
+
   <hr>
 
   <div class="mt-2">

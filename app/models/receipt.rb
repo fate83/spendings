@@ -5,4 +5,8 @@ class Receipt < ApplicationRecord
   has_many :items, dependent: :destroy
 
   validates :shopped_at, presence: true
+
+  def total
+    items.sum(&:total) || 0.00
+  end
 end
