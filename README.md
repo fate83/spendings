@@ -21,6 +21,11 @@ Things you may want to cover:
 
 * Deployment instructions
 
+# Deployment
+```
+cap production deploy
+```
+
 # ToDo
 - [x] Geschäfte
 - [x] Kategorien
